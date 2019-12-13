@@ -1,0 +1,15 @@
+{
+  "name": "animus2influxdb",
+  "version": "0.1.0",
+  "description": "Read events from Animus home websockt and push them in an influxDB.",
+  "main": "js-animus.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "animus2influxdb"
+  },
+  "author": "",
+  "license": "ISC"
+}

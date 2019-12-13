@@ -4,12 +4,18 @@
   "description": "Read events from Animus home websockt and push them in an influxDB.",
   "main": "js-animus.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node js-animus.js"
   },
   "repository": {
     "type": "git",
     "url": "animus2influxdb"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "6.2.0"
+  },
+  "dependencies": {
+    "dotenv": "8.2.0"
+  }
 }

@@ -16,6 +16,9 @@
     "node": "6.2.0"
   },
   "dependencies": {
-    "dotenv": "8.2.0"
+    "dotenv": "8.2.0",
+    "influx": "5.5.1",
+    "winston": "3.2.1",
+    "ws": "7.2.1"
   }
 }

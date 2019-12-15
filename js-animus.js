@@ -1,35 +1,55 @@
 #!/usr/bin/node
 
+// Dependencies
 require('dotenv').config()
+const Influx = require('influx');
+const WebSocket = require('ws');
+const winston = require('winston');
 
-console.log("Running in :"  + process.env.API_KEY_JEEDOM);
-console.log("Running in :"  + process.env.API_KEY_ANIMUS);
+const logger = winston.createLogger({
+  level: 'debug',
+  //format: winston.format.json(),
+  format: winston.format.simple(),
+  defaultMeta: { },
+  transports: [
+    //
+    // - Write to all logs with level `debug` and below to `/tmp/log-heart2info.log'
+    // - Write all logs error (and below) to `error.log`.
+    //
+    new winston.transports.File({ filename: '/tmp/error.log', level: 'error' }),
+    new winston.transports.File({ filename: '/tmp/log-heart2info.log' })
+  ]
+});
 
-process.exit(1);
+
+//
+// If we're not in production then log to the `console` with the format:
+// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+//
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.cli()
+  }));
+  logger.info("Not production");
+}
 
 process.on('uncaughtException', function(error) {
-   console.log(error);
+   logger.error("Application exit because off uncaughtException");
+   logger.error(error);
    process.exit(1)
 });
 
 
-// Jeedom stuff
-const http = require('http');
-const Jeedom_url  = 'http://192.168.1.112/core/api/jeeApi.php?plugin=virtual&apikey="+process.env.API_KEY_JEEDOM+"&type=virtual';
-const id_fibtemp = 1559
-
-// Animus stuff
-const WebSocket = require('ws');
-var wsUri = "ws://192.168.1.138/heart/events";
-var protocol = "AHauth";
+// Init Animushome heart stuff
+const wsUri = "ws://" + process.env.HEART_IP + "/heart/events";
+const protocol = "AHauth";
 var websocket = new WebSocket(wsUri, protocol);
 
 
 // Influx DB
-const Influx = require('influx');
 const influx = new Influx.InfluxDB({
- host: '192.168.1.103',
- database: 'didtest',
+ host: process.env.INFDB_IP,
+ database: process.env.INFDB_NAME,
  schema: [
    {
      measurement: 'sensor',
@@ -46,60 +66,56 @@ const influx = new Influx.InfluxDB({
 })
 
 // Create the sensor object
-var sensor = {jeedomcmd:0, name:"", location:null, temperature:null, humidity:null, presence:null};
+var sensor = {name:"", location:null, temperature:null, humidity:null, presence:null};
 
-
-function do_log(msg) {
-   console.log(msg);
-}
 
 function myPing() {
-  console.log(`.`);
+  logger.debug("Send heartbeat");
   websocket.send("heartbeat");
   setTimeout(myPing, 50000);
 }
 
 websocket.onopen = function(evt) {
-  console.debug("ws open", evt);
+  // THIS IS NOT working logger.info("ws open", evt);
+  logger.info("ws open");
+  logger.info(JSON.stringify(evt,null,2));
   //First message after connection open must be the Authorization message
   //Send Authorization message within 2 seconds, otherwise socket will get closed
-  websocket.send("Authorization: Bearer " + process.env.API_KEY_ANIMUS);
+  websocket.send("Authorization: Bearer " + process.env.HEART_API_KEY);
   setTimeout(myPing, 50000);
 };
 
 websocket.onclose = function(evt) {
-  console.debug("ws close", evt);
+  logger.debug("ws close", evt);
 };
 
 websocket.onerror = function(evt) {
-  console.error("ws error", evt);
+  logger.error("ws error", evt);
 };
 
 //All events will be received by this callback function
 websocket.onmessage = function(evt) {
 
-  console.log(evt.data);
+  logger.info(evt.data);
 
   try {
         var resp = JSON.parse(evt.data);
 
-        console.log("Measure from animus:");
-        console.log("functionUID:  " + resp.functionUID);
-        console.log("level:        " + resp.value.level);
-        console.log("unit:         " + resp.value.unit);
-        console.log("timestamp:    " + resp.value.timestamp);
+        logger.info("Measure from animus:");
+        logger.info("functionUID:  " + resp.functionUID);
+        logger.info("level:        " + resp.value.level);
+        logger.info("unit:         " + resp.value.unit);
+        logger.info("timestamp:    " + resp.value.timestamp);
         var ts = new Date(resp.value.timestamp);
-        console.log("timestamp:    " + ts.toGMTString());
+        logger.info("timestamp:    " + ts.toGMTString());
 	
 	var value  = resp.value.level;
-	sensor.jeedomcmd   = null;
 	sensor.temperature = null;
 	sensor.humidity    = null;
 	sensor.presence    = null;
 
 	// Fibaro smoke detector
 	if (resp.functionUID.match(/f-0\.49\.1$/) ){ 
-	   sensor.jeedomcmd = 1559;
 	   sensor.name = "Smoke detector";
 	   sensor.location = "Couloir";
 	   sensor.temperature = value;
@@ -107,14 +123,12 @@ websocket.onmessage = function(evt) {
 
 	// Tellus thermo & hygro
 	if (resp.functionUID.match(/f-8193\.0$/) ) { 
-	   sensor.jeedomcmd = 1560; 
 	   sensor.name = "Tellus"
 	   sensor.location = "Bureau"
 	   sensor.temperature = value;
 	}
 
 	if (resp.functionUID.match(/f-8193\.1$/) ) { 
-	   sensor.jeedomcmd = 1561; 
 	   sensor.name = "Tellus"
 	   sensor.location = "Bureau"
 	   sensor.humidity = value;
@@ -122,7 +136,6 @@ websocket.onmessage = function(evt) {
 
     	// Everspring presence sensor
 	if (resp.functionUID.match(/f-0\.48$/) )   { 
-	   sensor.jeedomcmd = 1562; 
 	   sensor.name = "Everspring"
 	   sensor.location = "Couloir"
 	   sensor.presence = resp.value.value;
@@ -134,11 +147,11 @@ websocket.onmessage = function(evt) {
 	   }
         }
 
-        console.log("sensor object:");
-	console.log(sensor);
+        logger.debug("sensor object:");
+        logger.debug(JSON.stringify(sensor,null,2));
 	// Write value to InfluxDB
         if ( (sensor.temperature != null) || (sensor.humidity != null) || (sensor.presence != null) ) {
-           console.log("Write to influxDB");
+           logger.info("Write to influxDB");
 	   influx.writePoints([
   	      {
     	         measurement: 'sensor',
@@ -147,35 +160,13 @@ websocket.onmessage = function(evt) {
   	      }
 	   ]);
 	}
-
-        // Write value to Jeedom
-        if (sensor.jeedomcmd > 0) {
-           http.get(Jeedom_url + "&id=" + sensor.jeedomcmd + "&value=" + value, (resp) => {
-
-              let data = '';
-
-              // A chunk of data has been recieved.
-              resp.on('data', (chunk) => {
-                 data += chunk;
-              });
-
-              // The whole response has been received. Print out the result.
-              resp.on('end', () => {
-                 do_log(data);
-                 do_log("Update Jeedom looks good (value="+value+")!");
-              });
-
-           }).on("error", (err) => {
-              do_log("Error update Jeedom: " + err.message);
-           });
-        }
   }
   catch(err) {
      // Ignore
      if ( err.name === 'SyntaxError' ) {
-	do_log("Not JSON format: expected, nothing to worry about");
+	logger.warn("Not JSON format: expected, nothing to worry about");
      } else {
-	do_log(err);
+	logger.error(err);
      }
   }
 

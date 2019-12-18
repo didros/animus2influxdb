@@ -34,32 +34,35 @@ if (process.env.NODE_ENV !== 'production') {
   logger.info("Not production");
 }
 
-process.on('uncaughtException', function(error) {
-   logger.error("Application exit because off uncaughtException");
-   logger.error(error);
-   process.exit(1)
-});
+//process.on('uncaughtException', function(error) {
+ //  logger.error("Application exit because off uncaughtException");
+ //  logger.error(error);
+   // process.exit(1)
+//});
 
 var devices= new HashMap();
 var functions= new HashMap();
 var locations= new HashMap();
 
-locations.set("area-0-1575580173183", "Couloir");
-locations.set("area-8-1575149704169", "Bureau");
+// Read locations from configuration file (can't fin APIs for that)
+logger.debug("LOCATIONS = " + process.env.LOCATIONS);
+const loc = JSON.parse(process.env.LOCATIONS);
+for (var L in loc ) {
+    if (loc.hasOwnProperty(L)) {
+       locations.set(L, loc[L]);
+       logger.debug(L + " -> " + locations.get(L));
+    }
+}
 
-devices.set("com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3",{"name":"Tellus", "animus_area": "area-8-1575149704169"});
-devices.set("com.animushome.heart.packages.zwave.devices.010F-6",{"name":"Detecteur fumée","animus_area":"area-0-1575580173183"});
-devices.set("com.animushome.heart.packages.zwave.devices.0060-8",{"name":"Motion couloir","animus_area":"area-0-1575580173183"});
 
-functions.set("com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.0", {"device_UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3", "type": "temperature", "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor"});
-functions.set("com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.1", {"device_UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3", "type": "humidity", "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor"});
-functions.set("com.animushome.heart.packages.zwave.devices.010F-6:f-0.49.1", {"device_UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.49.1", "type": "temperature", "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor"});
-functions.set("com.animushome.heart.packages.zwave.devices.0060-8:f-0.48", {"device_UID": "com.animushome.heart.packages.zwave.devices.0060-8", "type": null, "clazz": "com.animushome.heart.service.dal.functions.BooleanSensor"});
-
-// Init Animushome heart stuff
-const wsUri = "ws://" + process.env.HEART_IP + "/heart/events";
+// Animushome heart stuff
 const protocol = "AHauth";
-var websocket = new WebSocket(wsUri, protocol);
+const wsUri    = "ws://" + process.env.HEART_IP + "/heart/events";
+var websocket;
+   
+//  Open websocket
+websocket = new WebSocket(wsUri, protocol);
+
 
 
 // Influx DB
@@ -72,15 +75,15 @@ const influx = new Influx.InfluxDB({
      fields: {
        temperature: Influx.FieldType.FLOAT,
        humidity: Influx.FieldType.INTEGER,
-       presence: Influx.FieldType.BOOLEAN,
-       unit: Influx.FieldType.STRING
+       presence: Influx.FieldType.BOOLEAN
      },
      tags: [
-       'name', 'location'
+       'name', 'location', 'unit'
      ]
    }
  ]
 })
+
 
 // Create the sensor object
 var sensor = {name:"", location:null, temperature:null, humidity:null, presence:null, unit:null};
@@ -102,15 +105,16 @@ websocket.onopen = function(evt) {
 
 websocket.onclose = function(evt) {
   logger.debug("ws close", evt);
+  clearTimeout();
 };
 
 websocket.onerror = function(evt) {
   logger.error("ws error", evt);
+  clearTimeout();
 };
 
 //All events will be received by this callback function
 websocket.onmessage = function(evt) {
-
   logger.info(evt.data);
 
   try {
@@ -132,6 +136,8 @@ websocket.onmessage = function(evt) {
 	var func, dev;
 	if (functions.has(resp.functionUID)) {
 
+           var write2db = true;
+
  	   func = functions.get(resp.functionUID); 
     	   if (func.clazz === "com.animushome.heart.service.dal.functions.MultiLevelSensor") {
               if (func.type === "temperature") {
@@ -141,51 +147,62 @@ websocket.onmessage = function(evt) {
 	         sensor.humidity = resp.value.level;
 	      }
 	      else {
-	         logger.warn("Humm... unsupported type (" + func.type + "). We should not be here");
+	         logger.warn("Unsupported type (" + func.type + ").");
+                 write2db = false;
 	      }
            }
 	   else {
-	      // loc.class === "com.animushome.heart.service.dal.functions.BooleanSensor"
-	      sensor.presence = resp.value.value;
+	      if ( func.clazz === "com.animushome.heart.service.dal.functions.BooleanSensor" ) {
+	         sensor.presence = resp.value.value;
+              }
+              else {
+	         logger.warn("Unsupported clazz (" + func.clazz + ").");
+                 write2db = false;
+              }
 	   }
-	   if (devices.has(func.device_UID)) {
+
+	   if ( devices.has(func.device_UID)) {
 	      dev = devices.get(func.device_UID);
 	      sensor.name = dev.name;
 	      sensor.location = locations.get(dev.animus_area);
 	   }
 	   else {
-	      logger.warn("Unsupported device (do a restart to force reading of devices)");
+	      logger.warn("Unknown device (do a restart to force reading new devices)");
+              write2db = false;
 	   }
-	} 
+
+	   // Write value to InfluxDB
+           if ( write2db ) {
+              //logger.debug("sensor object:");
+              //logger.debug(JSON.stringify(sensor,null,2));
+	   
+              logger.info("Write to influxDB");
+	      logger.debug(JSON.stringify({
+    	         measurement: 'sensor',
+    	         tags:   { name: sensor.name, location: sensor.location, unit: sensor.unit },
+    	         fields: { temperature: sensor.temperature, humidity: sensor.humidity, presence: sensor.presence }
+  	      }),null,2);
+	      if (0) {
+                 logger.debug("DO NOT Write to influxDB");
+	      }
+	      else {
+	         influx.writePoints([
+  	         {
+    	            measurement: 'sensor',
+    	            tags:   { name: sensor.name, location: sensor.location, unit: sensor.unit },
+    	            fields: { temperature: sensor.temperature, humidity: sensor.humidity, presence: sensor.presence }
+  	         }
+	         ]);
+	      }
+	   } 
+           else {
+              logger.info("NO write to influxDB");
+           }
+	}
 	else {
 	   logger.warn("Unknown function IUD : " + resp.functionUID);
 	}
 
-
-        logger.debug("sensor object:");
-        logger.debug(JSON.stringify(sensor,null,2));
-	// Write value to InfluxDB
-        if ( (sensor.temperature != null) || (sensor.humidity != null) || (sensor.presence != null) ) {
-           logger.info("Write to influxDB");
-           logger.debug("DO NOT Write to influxDB");
-	   if (1) {
-	      logger.debug("Write this to influxDB");
-	      logger.debug(JSON.stringify({
-    	            measurement: 'sensor',
-    	            tags: { name: sensor.name, location: sensor.location },
-    	               fields: { temperature: sensor.temperature, humidity: sensor.humidity, presence: sensor.presence, unit: sensor.unit }
-  	         }),null,2);
-	   }
-	   else {
-	      influx.writePoints([
-  	      {
-    	         measurement: 'sensor',
-    	         tags: { name: sensor.name, location: sensor.location },
-    	         fields: { temperature: sensor.temperature, humidity: sensor.humidity, presence: sensor.presence, unit: sensor.unit }
-  	      }
-	      ]);
-	   }
-	}
   }
   catch(err) {
      // Ignore
@@ -199,5 +216,74 @@ websocket.onmessage = function(evt) {
 
 };
 
+
+// Animushome heart stuff
+function animus_init() {
+
+   // const funcUri  = "http://" + process.env.HEART_IP + "/rest/functions";
+   const http = require('http');
+
+   var options = {
+       hostname: process.env.HEART_IP,
+       path: '/rest/devices',
+       headers: {
+           Authorization: "Bearer " + process.env.HEART_API_KEY
+       }
+   }
+   // Read devices
+   http.get(options, (resp) => {
+      let data = '';
+      // A chunk of data has been recieved.
+      resp.on('data', (chunk) => {
+         data += chunk;
+      });
+
+      // The whole response has been received.
+      resp.on('end', () => {
+         var resp = JSON.parse(data);
+         logger.debug(JSON.stringify(resp,null,2));
+         for (var dev in resp) {
+            if (resp.hasOwnProperty(dev)) {
+               logger.debug(dev + " -> name:" + resp[dev].properties.name + " animus_area:" + resp[dev].properties.animus_area);
+               devices.set(dev,{"name": resp[dev].properties.name, "animus_area": resp[dev].properties.animus_area});
+            }
+         } 
+         
+         options.path = '/rest/functions';
+         logger.debug(JSON.stringify(options,null,2));
+         http.get(options, (resp) => {
+            let data = '';
+            // A chunk of data has been recieved.
+            resp.on('data', (chunk) => {
+               data += chunk;
+            });
+            
+            // The whole response has been received.
+            resp.on('end', () => {
+               resp = JSON.parse(data);
+               logger.debug(JSON.stringify(resp,null,2));
+               for (var func in resp) {
+                  if (resp.hasOwnProperty(func)) {
+                     functions.set(func, { "device_UID": resp[func].serviceProperties.device_UID, 
+                                           "type":       resp[func].serviceProperties.type,
+                                           "clazz":      resp[func].serviceProperties.clazz});
+                     logger.debug(func + " -> " + JSON.stringify(functions.get(func),null,2));
+                  }
+               } 
+            });
+
+         }).on("error", (err) => {
+            logger.error(err.message);
+         });
+
+      });
+  }).on("error", (err) => {
+       logger.error(err.message);
+  });
+
+    
+}
+
+animus_init();
 
 

@@ -58,11 +58,6 @@ for (var L in loc ) {
 // Animushome heart stuff
 const protocol = "AHauth";
 const wsUri    = "ws://" + process.env.HEART_IP + "/heart/events";
-var websocket;
-   
-//  Open websocket
-websocket = new WebSocket(wsUri, protocol);
-
 
 
 // Influx DB
@@ -88,33 +83,46 @@ const influx = new Influx.InfluxDB({
 // Create the sensor object
 var sensor = {name:"", location:null, temperature:null, humidity:null, presence:null, unit:null};
 
+var ws;
 
 function pingHeart() {
   logger.debug("Send heartbeat");
-  websocket.send("heartbeat");
+  ws.send("heartbeat");
   setTimeout(pingHeart, 50000);
 }
 
-websocket.onopen = function(evt) {
+
+function startWebsocket() {
+
+logger.info("In startWebsocet");
+
+//  Open websocket
+ws = new WebSocket(wsUri, protocol);
+
+
+ws.onopen = function(evt) {
   logger.info("ws open:" + JSON.stringify(evt,null,2));
   //First message after connection open must be the Authorization message
   //Send Authorization message within 2 seconds, otherwise socket will get closed
-  websocket.send("Authorization: Bearer " + process.env.HEART_API_KEY);
+  ws.send("Authorization: Bearer " + process.env.HEART_API_KEY);
   setTimeout(pingHeart, 50000);
 };
 
-websocket.onclose = function(evt) {
-  logger.debug("ws close", evt);
+ws.onclose = function(evt) {
+  logger.info("ws close", evt);
   clearTimeout();
+  ws = null
+  logger.info("Starting websocket in 5 s", evt);
+  setTimeout(startWebsocket, 5000)
 };
 
-websocket.onerror = function(evt) {
+ws.onerror = function(evt) {
   logger.error("ws error", evt);
   clearTimeout();
 };
 
 //All events will be received by this callback function
-websocket.onmessage = function(evt) {
+ws.onmessage = function(evt) {
   logger.info(evt.data);
 
   try {
@@ -216,6 +224,8 @@ websocket.onmessage = function(evt) {
 
 };
 
+}
+
 
 // Animushome heart stuff
 function animus_init() {
@@ -285,5 +295,8 @@ function animus_init() {
 }
 
 animus_init();
+
+startWebsocket();
+
 
 

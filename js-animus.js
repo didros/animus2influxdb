@@ -209,6 +209,7 @@ ws.onmessage = function(evt) {
 	}
 	else {
 	   logger.warn("Unknown function IUD : " + resp.functionUID);
+           logger.info("NO write to influxDB");
 	}
 
   }

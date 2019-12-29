@@ -6,6 +6,7 @@ require('dotenv').config()
 const Influx = require('influx');
 const WebSocket = require('ws');
 const winston = require('winston');
+const fs = require('fs');
 
 const logger = winston.createLogger({
   level: 'debug',
@@ -17,7 +18,7 @@ const logger = winston.createLogger({
     // - Write to all logs with level `debug` and below to `/tmp/log-heart2info.log'
     // - Write all logs error (and below) to `error.log`.
     //
-    // DEBUG new winston.transports.File({ filename: '/tmp/error.log', level: 'error' }),
+    new winston.transports.File({ filename: '/tmp/error-heart.log', level: 'error' }),
     new winston.transports.File({ filename: '/tmp/log-heart.log' })
   ]
 });
@@ -34,6 +35,11 @@ if (process.env.NODE_ENV !== 'production') {
   logger.info("Not production");
 }
 
+if (!fs.existsSync('.env')) {
+  logger.error('The file .env does not exist');
+  process.exit(1);
+}
+
 //process.on('uncaughtException', function(error) {
  //  logger.error("Application exit because off uncaughtException");
  //  logger.error(error);
@@ -45,15 +51,29 @@ var functions= new HashMap();
 var locations= new HashMap();
 
 // Read locations from configuration file (can't fin APIs for that)
-logger.debug("LOCATIONS = " + process.env.LOCATIONS);
-const loc = JSON.parse(process.env.LOCATIONS);
-for (var L in loc ) {
-    if (loc.hasOwnProperty(L)) {
-       locations.set(L, loc[L]);
-       logger.debug(L + " -> " + locations.get(L));
-    }
+try {
+   logger.debug("LOCATIONS = " + process.env.LOCATIONS);
+   const loc = JSON.parse(process.env.LOCATIONS);
+   for (var L in loc ) {
+       if (loc.hasOwnProperty(L)) {
+          locations.set(L, loc[L]);
+          logger.debug(L + " -> " + locations.get(L));
+       }
+   }
+}
+catch (err) {
+   logger.warn(err);
+   logger.warn("Are locations configured in your .env file?");
 }
 
+if (process.env.HEART_IP === undefined || process.env.HEART_IP === "") {
+   logger.warn("HEART_IP not defined in .env file. Default to localhost.");
+   process.env.HEART_IP = "localhost";
+}
+
+if (process.env.HEART_API_KEY === undefined || process.env.HEART_API_KEY === "") {
+   logger.error("HEART_API_KEY not defined in .env file. This won't work!");
+}
 
 // Animushome heart stuff
 const protocol = "AHauth";
@@ -61,6 +81,14 @@ const wsUri    = "ws://" + process.env.HEART_IP + "/heart/events";
 
 
 // Influx DB
+if (process.env.INFDB_IP === undefined || process.env.INFDB_IP === "") {
+   logger.warn("INFDB_IP not defined in .env file. Default to localhost.");
+   process.env.INFDB_IP = "localhost";
+}
+if (process.env.INFDB_NAME === undefined || process.env.INFDB_NAME === "") {
+   logger.warn("INFDB_NAME not defined in .env file. Default to heart.");
+   process.env.INFDB_NAME = "heart";
+}
 const influx = new Influx.InfluxDB({
  host: process.env.INFDB_IP,
  database: process.env.INFDB_NAME,
@@ -112,8 +140,9 @@ ws.onclose = function(evt) {
   logger.info("ws close", evt);
   clearTimeout();
   ws = null
-  logger.info("Starting websocket in 5 s", evt);
-  setTimeout(startWebsocket, 5000)
+  logger.info("Starting websocket in 60 s", evt);
+  setTimeout(startWebsocket, 60000)
+  //setTimeout(startWebsocket, 5000)
 };
 
 ws.onerror = function(evt) {
@@ -172,7 +201,12 @@ ws.onmessage = function(evt) {
 	   if ( devices.has(func.device_UID)) {
 	      dev = devices.get(func.device_UID);
 	      sensor.name = dev.name;
-	      sensor.location = locations.get(dev.animus_area);
+              if (locations.has(dev.animus_area)) {
+	         sensor.location = locations.get(dev.animus_area);
+              }
+              else {
+	         sensor.location = dev.animus_area;
+              }
 	   }
 	   else {
 	      logger.warn("Unknown device (do a restart to force reading new devices)");
@@ -200,7 +234,9 @@ ws.onmessage = function(evt) {
     	            tags:   { name: sensor.name, location: sensor.location, unit: sensor.unit },
     	            fields: { temperature: sensor.temperature, humidity: sensor.humidity, presence: sensor.presence }
   	         }
-	         ]);
+	         ]).catch(err => {
+                    logger.error(`Error saving data to InfluxDB! ${err}`)
+                 });
 	      }
 	   } 
            else {
@@ -208,7 +244,8 @@ ws.onmessage = function(evt) {
            }
 	}
 	else {
-	   logger.warn("Unknown function IUD : " + resp.functionUID);
+           // TODO - read the new function and associated device
+	   logger.error("Unknown function IUD : " + resp.functionUID);
            logger.info("NO write to influxDB");
 	}
 

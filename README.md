@@ -24,4 +24,29 @@ If you easily want to have a graphical representation of your sensor datas, go f
 
 # Configuration
 
+## If runing in docker
+Create the image.
+
+<code>sudo docker image build -t animus2influxdb:0.9 .</code>
+
 # Run
+
+## Run (no container)
+
+Interactive mode:
+<code>npm start</code>
+
+or 
+
+<code>node ./js-animus.js</code>
+
+Using pm2 to demonize you process
+
+<code>pm2 start 0</code>
+
+## Run in docker
+
+Config file in the container:
+
+<code>sudo docker container run --detach -i --name animus animus2influxdb:0.9</code>
+

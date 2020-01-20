@@ -3,7 +3,7 @@ This program exports sensor information from Animushome Heart and push it in an 
 
 Current version supports sensors of type temperature, humudity ("MultiLevelSensor") and presence ("BooleanSensor"). Additional types can be easily supported. Program uses Heart websocket so information is received in real time (no pooling).
 
-# Prereq
+Status: currently testing
 
 ## Node and pm2
 You need node.js (https://nodejs.org) to run the program. 

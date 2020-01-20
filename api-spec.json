@@ -1,0 +1,1714 @@
+{
+  "com.animushome.heart.packages.lifx:e6ca13d573d0": {
+    "properties": {
+      "types": [
+        "light_bulb"
+      ],
+      "is_favorite": false,
+      "primary_funcs": [
+        "com.animushome.heart.packages.lifx:e6ca13d573d0:switch"
+      ],
+      "description": "Lifx light bulb",
+      "firmware_version": "0.0.1",
+      "hardware_version": "0.0.1",
+      "firmware_vendor": "Lifx",
+      "UID": "com.animushome.heart.packages.lifx:e6ca13d573d0",
+      "hardware_vendor": "Lifx",
+      "driver": "driver",
+      "DEVICE_CATEGORY": "DAL",
+      "name": "Lifx salon",
+      "model": "bulb",
+      "animus_area": "area-5-1575124025533",
+      "status": 3
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6": {
+    "properties": {
+      "types": [
+        "sensor"
+      ],
+      "is_favorite": true,
+      "primary_funcs": [
+        "com.animushome.heart.packages.zwave.devices.010F-6:f-0.49.1"
+      ],
+      "description": "default zwave product",
+      "serial_number": "1002",
+      "firmware_version": "0.0.0",
+      "hardware_version": "0.0.0",
+      "firmware_vendor": "Fibaro System",
+      "security_level": 0,
+      "security_desc": "The connection is not secure",
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "hardware_vendor": "Fibaro System",
+      "icon_path": "/images/devices/fireplace.svg",
+      "DEVICE_CATEGORY": "DAL",
+      "name": "Detecteur fumée",
+      "model": "1002",
+      "animus_area": "area-0-1575580173183",
+      "status": 3
+    }
+  },
+  "com.animushome.heart.packages.lifx:15be13d573d0": {
+    "properties": {
+      "types": [
+        "light_bulb"
+      ],
+      "is_favorite": true,
+      "primary_funcs": [
+        "com.animushome.heart.packages.lifx:15be13d573d0:switch"
+      ],
+      "description": "Lifx light bulb",
+      "firmware_version": "0.0.1",
+      "hardware_version": "0.0.1",
+      "firmware_vendor": "Lifx",
+      "UID": "com.animushome.heart.packages.lifx:15be13d573d0",
+      "hardware_vendor": "Lifx",
+      "driver": "driver",
+      "DEVICE_CATEGORY": "DAL",
+      "name": "Lifx bureau",
+      "model": "bulb",
+      "animus_area": "area-8-1575149704169",
+      "status": 3
+    }
+  },
+  "com.animushome.heart.device.led-1": {
+    "properties": {
+      "types": [
+        "heart"
+      ],
+      "is_favorite": false,
+      "primary_funcs": [
+        "com.animushome.heart.device.led-1:switch"
+      ],
+      "description": "Device to control the Halo on the Animus Heart",
+      "serial_number": "01",
+      "firmware_version": "0.0.1",
+      "hardware_version": "0.0.1",
+      "firmware_vendor": "Animus Home",
+      "security_level": 1,
+      "security_desc": "The connection to Heart Halo is secure",
+      "UID": "com.animushome.heart.device.led-1",
+      "driver": "com.animushome.heart.device.led-1-driver",
+      "hardware_vendor": "Animus Home",
+      "DEVICE_CATEGORY": "DAL",
+      "name": "Heart Halo",
+      "model": "com.animushome.heart.device.led-1-model",
+      "animus_area": "area-8-1575149704169",
+      "status": 3
+    }
+  },
+  "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3": {
+    "properties": {
+      "UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3",
+      "types": [
+        "sensor"
+      ],
+      "is_favorite": true,
+      "primary_funcs": [
+        "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.0"
+      ],
+      "DEVICE_CATEGORY": "DAL",
+      "name": "Telldus",
+      "description": "Temperature and humidity sensor",
+      "model": "RF433 model",
+      "animus_area": "area-8-1575149704169",
+      "status": 3
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.0060-8": {
+    "properties": {
+      "types": [
+        "device"
+      ],
+      "is_favorite": false,
+      "primary_funcs": [
+        "com.animushome.heart.packages.zwave.devices.0060-8:f-0.48"
+      ],
+      "description": "default zwave product",
+      "serial_number": "0002",
+      "firmware_version": "0.0.0",
+      "hardware_version": "0.0.0",
+      "firmware_vendor": "Everspring",
+      "security_level": 0,
+      "security_desc": "The connection is not secure",
+      "UID": "com.animushome.heart.packages.zwave.devices.0060-8",
+      "hardware_vendor": "Everspring",
+      "icon_path": "/images/devices/ir.svg",
+      "DEVICE_CATEGORY": "DAL",
+      "name": "Motion",
+      "model": "0002",
+      "animus_area": "area-0-1575580173183",
+      "status": 3
+    }
+  }
+}
+
+
+
+{
+  "com.animushome.heart.device.led-1:switch": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.device.led-1:switch",
+      "operation_names": [
+        "inverse",
+        "setFalse",
+        "setTrue",
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.device.led-1",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.BooleanControl",
+      "views": [
+        "main"
+      ],
+      "primary": true,
+      "group": 1
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.BooleanData",
+          "property_access": 7
+        },
+        "value": {
+          "value": false,
+          "metadata": {},
+          "timestamp": 1576362215666
+        }
+      }
+    },
+    "functionOperations": {
+      "setTrue": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "inverse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setFalse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.0": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.0",
+      "operation_names": [
+        "getData"
+      ],
+      "device_UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "name": "Temperature ",
+      "type": "temperature",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor",
+      "views": [
+        "main"
+      ],
+      "primary": true
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 5
+        },
+        "maxValue": {
+          "level": 100,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 17.6,
+          "unit": "°C",
+          "metadata": {},
+          "timestamp": 1576405873028
+        }
+      }
+    },
+    "functionOperations": {
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.0060-8:f-0.-128": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.0060-8:f-0.-128",
+      "operation_names": [
+        "getData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.0060-8",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "battery",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 5
+        },
+        "maxValue": {
+          "level": 100,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576332200479
+        },
+        "minValue": {
+          "level": 0,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576332200479
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 90,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576336520412
+        }
+      }
+    },
+    "functionOperations": {
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.lifx:15be13d573d0:dim": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.lifx:15be13d573d0:dim",
+      "operation_names": [
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.lifx:15be13d573d0",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelControl",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 7
+        },
+        "maxValue": {
+          "level": 100,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 1576332179000
+        }
+      }
+    },
+    "functionOperations": {
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.1": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3:f-8193.1",
+      "operation_names": [
+        "getData"
+      ],
+      "device_UID": "com.animushome.heart.packages.rf433.1d16ea82-9ce4-4e30-af75-80415e0c30d3",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "name": "Humidity ",
+      "type": "humidity",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 5
+        },
+        "maxValue": {
+          "level": 100,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 48,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576405873028
+        }
+
+    },
+    "functionOperations": {
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.4": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.4",
+      "operation_names": [
+        "getAlarm"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "alarm"
+      ],
+      "animus.package.type": "device",
+      "name": "system",
+      "clazz": "com.animushome.heart.service.dal.functions.Alarm",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "alarm": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.AlarmData",
+          "property_access": 5
+        },
+        "enumValues": [
+          {
+            "type": 7,
+            "event": 0,
+            "description": "Idle",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 7,
+            "event": 1,
+            "description": "Heartbeat",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 7,
+            "event": 4,
+            "description": "Failure/tamper",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 7,
+            "event": 10,
+            "description": "Unknown",
+            "metadata": {},
+            "timestamp": 0
+          }
+        ]
+      }
+    },
+    "functionOperations": {
+      "getAlarm": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.AlarmData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.1": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.1",
+      "operation_names": [
+        "getAlarm"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "alarm"
+      ],
+      "animus.package.type": "device",
+      "name": "heat alarm",
+      "type": "heat",
+      "clazz": "com.animushome.heart.service.dal.functions.Alarm",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "alarm": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.AlarmData",
+          "property_access": 5
+        },
+        "enumValues": [
+          {
+            "type": 6,
+            "event": 0,
+            "description": "Idle",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 6,
+            "event": 1,
+            "description": "Maintenance",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 6,
+            "event": 2,
+            "description": "Silenced",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 6,
+            "event": 3,
+            "description": "Test",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 6,
+            "event": 4,
+            "description": "Event detected",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 6,
+            "event": 10,
+            "description": "Unknown",
+            "metadata": {},
+            "timestamp": 0
+          }
+        ]
+      }
+    },
+    "functionOperations": {
+      "getAlarm": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.AlarmData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.0060-8:f-0.32": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.0060-8:f-0.32",
+      "operation_names": [
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.0060-8",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "name": "Command Class Basic",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelControl",
+      "views": [
+        "settings"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 7
+        },
+        "maxValue": {
+          "level": 255,
+          "unit": "",
+          "metadata": {},
+          "timestamp": 1576332200488
+        },
+        "minValue": {
+          "level": 0,
+          "unit": "",
+          "metadata": {},
+          "timestamp": 1576332200488
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 0,
+          "unit": "",
+          "metadata": {},
+          "timestamp": 1576404071633
+        }
+      }
+    },
+    "functionOperations": {
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.0": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.0",
+      "operation_names": [
+        "getAlarm"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "alarm"
+      ],
+      "animus.package.type": "device",
+      "name": "smoke alarm",
+      "type": "smoke",
+      "clazz": "com.animushome.heart.service.dal.functions.Alarm",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "alarm": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.AlarmData",
+          "property_access": 5
+        },
+        "enumValues": [
+          {
+            "type": 9,
+            "event": 0,
+            "description": "Idle",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 9,
+            "event": 1,
+            "description": "Maintenance",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 9,
+            "event": 2,
+            "description": "Silenced",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 9,
+            "event": 3,
+            "description": "Test",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 9,
+            "event": 4,
+            "description": "Smoke detected",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 9,
+            "event": 10,
+            "description": "Unknown",
+            "metadata": {},
+            "timestamp": 0
+          }
+        ]
+      }
+    },
+    "functionOperations": {
+      "getAlarm": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.AlarmData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.3": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.3",
+      "operation_names": [
+        "getAlarm"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "alarm"
+      ],
+      "animus.package.type": "device",
+      "name": "power management",
+      "type": "power",
+      "clazz": "com.animushome.heart.service.dal.functions.Alarm",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "alarm": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.AlarmData",
+          "property_access": 5
+        },
+        "enumValues": [
+          {
+            "type": 8,
+            "event": 0,
+            "description": "Idle",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 8,
+            "event": 4,
+            "description": "Event detected",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 8,
+            "event": 10,
+            "description": "Unknown",
+            "metadata": {},
+            "timestamp": 0
+          }
+        ]
+      }
+    },
+    "functionOperations": {
+      "getAlarm": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.AlarmData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.2": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.113.2",
+      "operation_names": [
+        "getAlarm"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "alarm"
+      ],
+      "animus.package.type": "device",
+      "name": "home security",
+      "clazz": "com.animushome.heart.service.dal.functions.Alarm",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "alarm": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.AlarmData",
+          "property_access": 5
+        },
+        "enumValues": [
+          {
+            "type": 2,
+            "event": 0,
+            "description": "Idle",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 2,
+            "event": 4,
+            "description": "Event detected",
+            "metadata": {},
+            "timestamp": 0
+          },
+          {
+            "type": 2,
+            "event": 10,
+            "description": "Unknown",
+            "metadata": {},
+            "timestamp": 0
+          }
+        ]
+      }
+    },
+    "functionOperations": {
+      "getAlarm": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.AlarmData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.49.1": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.49.1",
+      "operation_names": [
+        "getData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "temperature",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor",
+      "views": [
+        "main"
+      ],
+      "primary": true
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 5
+        },
+        "maxValue": {
+          "level": 100,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 22.8,
+          "unit": "℃",
+          "metadata": {},
+          "timestamp": 1576400149070
+        }
+      }
+    },
+    "functionOperations": {
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.device.led-1:color": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.device.led-1:color",
+      "operation_names": [
+        "getColor",
+        "setColor",
+        "setTemperature"
+      ],
+      "device_UID": "com.animushome.heart.device.led-1",
+      "dal.color.modes": [
+        "hs"
+      ],
+      "property_names": [
+        "color"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.ColorControl",
+      "views": [
+        "main"
+      ],
+      "primary": false,
+      "group": 1
+    },
+    "functionProperties": {
+      "color": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.ColorData",
+          "property_access": 3
+        },
+        "maxValue": {
+          "hue": 1,
+          "saturation": 1,
+          "lightness": 1,
+          "temperature": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "hue": 0,
+          "saturation": 0,
+          "lightness": 0,
+          "temperature": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "hue": 0.32538228595321805,
+          "saturation": 1,
+          "lightness": 0.5,
+          "temperature": 0,
+          "metadata": {},
+          "timestamp": 1576362211511
+        }
+      }
+    },
+    "functionOperations": {
+      "setColor": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.ColorData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getColor": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.ColorData"
+          }
+        }
+      },
+      "setTemperature": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "java.math.BigDecimal"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:refresh": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:refresh",
+      "operation_names": [
+        "inverse",
+        "setFalse",
+        "setTrue",
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "name": "refresh",
+      "style": "touch",
+      "clazz": "com.animushome.heart.service.dal.functions.BooleanControl",
+      "views": [
+        "bottom_main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.BooleanData",
+          "property_access": 7
+        },
+        "value": {
+          "value": false,
+          "metadata": {
+            "true": "refresh",
+            "false": "refresh"
+          },
+          "timestamp": 1576332200311
+        }
+      }
+    },
+    "functionOperations": {
+      "setTrue": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "inverse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setFalse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.0060-8:f-0.48": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.0060-8:f-0.48",
+      "operation_names": [
+        "getData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.0060-8",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "clazz": "com.animushome.heart.service.dal.functions.BooleanSensor",
+      "views": [
+        "main"
+      ],
+      "primary": true
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.BooleanData",
+          "property_access": 5
+        },
+        "value": {
+          "value": false,
+          "metadata": {},
+          "timestamp": 1576405977616
+        }
+      }
+    },
+    "functionOperations": {
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.device.led-1:dim": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.device.led-1:dim",
+      "operation_names": [
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.device.led-1",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelControl",
+      "views": [
+        "main"
+      ],
+      "primary": false,
+      "group": 1
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 7
+        },
+        "maxValue": {
+          "level": 100,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 1576362215667
+        }
+      }
+    },
+    "functionOperations": {
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.lifx:e6ca13d573d0:switch": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.lifx:e6ca13d573d0:switch",
+      "operation_names": [
+        "inverse",
+        "setFalse",
+        "setTrue",
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.lifx:e6ca13d573d0",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.BooleanControl",
+      "views": [
+        "main"
+      ],
+      "primary": true
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.BooleanData",
+          "property_access": 7
+        },
+        "value": {
+          "value": false,
+          "metadata": {},
+          "timestamp": 1576396964745
+        }
+      }
+    },
+    "functionOperations": {
+      "setTrue": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "inverse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setFalse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.010F-6:f-0.-128": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.010F-6:f-0.-128",
+      "operation_names": [
+        "getData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.010F-6",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "battery",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelSensor",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 5
+        },
+        "maxValue": {
+          "level": 100,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576332200304
+        },
+        "minValue": {
+          "level": 0,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576332200304
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 65,
+          "unit": "%",
+          "metadata": {},
+          "timestamp": 1576400149072
+        }
+      }
+    },
+    "functionOperations": {
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.zwave.devices.0060-8:refresh": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.zwave.devices.0060-8:refresh",
+      "operation_names": [
+        "inverse",
+        "setFalse",
+        "setTrue",
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.zwave.devices.0060-8",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "name": "refresh",
+      "style": "touch",
+      "clazz": "com.animushome.heart.service.dal.functions.BooleanControl",
+      "views": [
+        "bottom_main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.BooleanData",
+          "property_access": 7
+        },
+        "value": {
+          "value": false,
+          "metadata": {
+            "true": "refresh",
+            "false": "refresh"
+          },
+          "timestamp": 1576332200498
+        }
+      }
+    },
+    "functionOperations": {
+      "setTrue": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "inverse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setFalse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.lifx:15be13d573d0:switch": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.lifx:15be13d573d0:switch",
+      "operation_names": [
+        "inverse",
+        "setFalse",
+        "setTrue",
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.lifx:15be13d573d0",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.BooleanControl",
+      "views": [
+        "main"
+      ],
+      "primary": true
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.BooleanData",
+          "property_access": 7
+        },
+        "value": {
+          "value": false,
+          "metadata": {},
+          "timestamp": 1576362170069
+        }
+      }
+    },
+    "functionOperations": {
+      "setTrue": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "inverse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "setFalse": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.BooleanData"
+          }
+        }
+      }
+    }
+  },
+  "com.animushome.heart.packages.lifx:e6ca13d573d0:dim": {
+    "serviceProperties": {
+      "UID": "com.animushome.heart.packages.lifx:e6ca13d573d0:dim",
+      "operation_names": [
+        "getData",
+        "setData"
+      ],
+      "device_UID": "com.animushome.heart.packages.lifx:e6ca13d573d0",
+      "property_names": [
+        "data"
+      ],
+      "animus.package.type": "device",
+      "type": "light",
+      "clazz": "com.animushome.heart.service.dal.functions.MultiLevelControl",
+      "views": [
+        "main"
+      ],
+      "primary": false
+    },
+    "functionProperties": {
+      "data": {
+        "metadata": {
+          "clazz": "com.animushome.heart.service.dal.functions.data.LevelData",
+          "property_access": 7
+        },
+        "maxValue": {
+          "level": 100,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "minValue": {
+          "level": 0,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "step": {
+          "level": 1,
+          "metadata": {},
+          "timestamp": 0
+        },
+        "value": {
+          "level": 11,
+          "metadata": {},
+          "timestamp": 1576352082188
+        }
+      }
+    },
+    "functionOperations": {
+      "setData": {
+        "metadata": {},
+        "paramsMeta": [
+          {
+            "metadata": {
+              "name": "arg0",
+              "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+            }
+          }
+        ],
+        "returnMeta": {
+          "metadata": {
+            "type": "void"
+          }
+        }
+      },
+      "getData": {
+        "metadata": {},
+        "paramsMeta": [],
+        "returnMeta": {
+          "metadata": {
+            "type": "com.animushome.heart.service.dal.functions.data.LevelData"
+          }
+        }
+      }
+    }
+  }
+}
+
+
